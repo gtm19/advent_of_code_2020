@@ -20,18 +20,18 @@
 #' Of course, your expense report is much larger. Find the two entries that sum 
 #' to 2020; what do you get if you multiply them together?
 
-day_01_part1 <- function(nums) {
+day_01_part1 <- function(nums, target = 2020L) {
   index <- 1
   
   while ({
     num_1 <- nums[index]
     other_nums <- setdiff(nums, num_1)
-    !((2020L - num_1) %in% other_nums) && index <= length(nums)
+    !((target - num_1) %in% other_nums) && index <= length(nums)
   }) {
     index <- index + 1
   }
   
-  return(nums[index] * (2020 - nums[index]))
+  return(nums[index] * (target - nums[index]))
 }
 
 nums <- 
@@ -52,6 +52,18 @@ day_01_part1(nums)
 #' In your expense report, what is the product of the three entries that sum to 
 #' 2020?
 
-day_01_part2 <- function(nums) {
-  
+day_01_part2 <- function(nums, target = 2020) {
+  index <- 1
+  while ({
+    num_1 <- nums[index]
+    other_nums <- setdiff(nums, num_1)
+    is.na(
+      part1 <- day_01_part1(other_nums, target - num_1)
+      ) && index < length(nums)
+  }) {
+    index <- index + 1
+  }
+  return(num_1 * part1)
 }
+
+day_01_part2(nums)
