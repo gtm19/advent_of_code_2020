@@ -59,7 +59,7 @@ check_passwords <- function(passwords, check_fun) {
 }
 
 passwords <- 
-  readLines(here::here("data", "day_02.txt"))
+  readLines(file.path("puzzles", "day_02", "input.txt"))
 
 check_passwords(passwords, test_1_function)
 
