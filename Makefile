@@ -1,8 +1,5 @@
-src = $(wildcard puzzles/day_*/*.Rmd)
-obj = $(src:.Rmd=.md)
+all: puzzles/day_*/*.md
 
-all: $(obj)
-
-$(obj): $(src)
+puzzles/day_%/%.md: puzzles/day_%/%.Rmd
 		Rscript \
 		-e "knitr::knit(input = '$<', output = '$@')"

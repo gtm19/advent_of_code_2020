@@ -1,79 +1,66 @@
----
-title: '--- Day 1: Report Repair ---'
-output: github_document
----
-
-
+— Day 3: Toboggan Trajectory —
+================
 
 ## The Challenge
 
-This can be read [here](https://adventofcode.com/2020/day/1)
+This can be read [here](https://adventofcode.com/2020/day/3)
 
 ## The Solution
 
 ### Reading in Data
 
+``` r
+trees <- readLines(
+  here::here("puzzles", "day_03", "input.txt")
+)
 
-```r
-nums <- 
-  as.integer(
-    readLines(here::here("puzzles", "day_01", "input.txt"))
-  )
-
-head(nums)
+head(trees)
 ```
 
-```
-## [1] 1438  781 1917 1371 1336 1802
-```
+    ## [1] "...#.....#.......##......#....." "...#..................#........"
+    ## [3] "....##....#.......#............" ".........#.......#.......#....."
+    ## [5] "..#..............#.........#..#" ".....#.........#....#....#....#"
 
 ### Part 1
 
-
-```r
-day_01_part1 <- function(nums, target = 2020L) {
-  index <- 1
-  
-  while ({
-    num_1 <- nums[index]
-    other_nums <- setdiff(nums, num_1)
-    !((target - num_1) %in% other_nums) && index <= length(nums)
-  }) {
-    index <- index + 1
-  }
-  
-  return(nums[index] * (target - nums[index]))
+``` r
+mod <- function(n, div) {
+  n - ((n - 1) %/% div)*div
 }
 
-day_01_part1(nums)
+how_many_trees <- function(trees, right = 3, down = 1) {
+  trees_mat <- matrix(
+    unlist(strsplit(trees, "")), 
+    nrow = length(trees), byrow = TRUE
+  )
+  rows <- seq(from = 1 + down, to = nrow(trees_mat), by = down)
+  cols <- mod(seq(from = 1 + right, by = right, length.out = length(rows)), ncol(trees_mat))
+  
+  sum(
+    sapply(seq_along(rows), function(i) {
+      trees_mat[rows[i], cols[i]] == "#"
+    })
+  )
+}
+
+how_many_trees(trees)
 ```
 
-```
-## [1] 1020099
-```
+    ## [1] 220
 
 ### Part 2
 
-
-```r
-day_01_part2 <- function(nums, target = 2020) {
-  index <- 1
-  while ({
-    num_1 <- nums[index]
-    other_nums <- setdiff(nums, num_1)
-    is.na(
-      part1 <- day_01_part1(other_nums, target - num_1)
-      ) && index < length(nums)
-  }) {
-    index <- index + 1
-  }
-  return(num_1 * part1)
-}
-
-day_01_part2(nums)
+``` r
+Reduce(
+  `*`,
+  c(
+    how_many_trees(trees, right = 1, down = 1),
+    how_many_trees(trees, right = 3, down = 1),
+    how_many_trees(trees, right = 5, down = 1),
+    how_many_trees(trees, right = 7, down = 1),
+    how_many_trees(trees, right = 1, down = 2)
+  )
+)
 ```
 
-```
-## [1] 49214880
-```
-
+    ## [1] 2138320800

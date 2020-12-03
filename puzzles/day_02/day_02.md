@@ -1,36 +1,28 @@
----
-title: '--- Day 1: Report Repair ---'
-output: github_document
----
-
-
+— Day 2: Password Philosophy —
+================
 
 ## The Challenge
 
-This can be read [here](https://adventofcode.com/2020/day/1)
+This can be read [here](https://adventofcode.com/2020/day/2)
 
 ## The Solution
 
 ### Reading in Data
 
-
-```r
+``` r
 nums <- 
   as.integer(
     readLines(here::here("puzzles", "day_01", "input.txt"))
   )
 
-head(nums)
+head(nums, 5)
 ```
 
-```
-## [1] 1438  781 1917 1371 1336 1802
-```
+    ## [1] 1438  781 1917 1371 1336
 
 ### Part 1
 
-
-```r
+``` r
 day_01_part1 <- function(nums, target = 2020L) {
   index <- 1
   
@@ -48,14 +40,11 @@ day_01_part1 <- function(nums, target = 2020L) {
 day_01_part1(nums)
 ```
 
-```
-## [1] 1020099
-```
+    ## [1] 1020099
 
 ### Part 2
 
-
-```r
+``` r
 day_01_part2 <- function(nums, target = 2020) {
   index <- 1
   while ({
@@ -73,7 +62,4 @@ day_01_part2 <- function(nums, target = 2020) {
 day_01_part2(nums)
 ```
 
-```
-## [1] 49214880
-```
-
+    ## [1] 49214880

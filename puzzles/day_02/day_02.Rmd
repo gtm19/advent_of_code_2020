@@ -21,7 +21,7 @@ nums <-
     readLines(here::here("puzzles", "day_01", "input.txt"))
   )
 
-head(nums)
+head(nums, 5)
 ```
 
 ### Part 1
