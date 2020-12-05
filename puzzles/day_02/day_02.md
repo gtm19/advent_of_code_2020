@@ -10,56 +10,57 @@ This can be read [here](https://adventofcode.com/2020/day/2)
 ### Reading in Data
 
 ``` r
-nums <- 
-  as.integer(
-    readLines(here::here("puzzles", "day_01", "input.txt"))
-  )
+passwords <- 
+  readLines(here::here("puzzles", "day_02", "input.txt"))
 
-head(nums, 5)
+head(passwords)
 ```
 
-    ## [1] 1438  781 1917 1371 1336
+    ## [1] "3-4 j: tjjj"                "7-10 h: nhhhhhgghphhh"     
+    ## [3] "7-13 j: tpscbbstbdjsjbtcpj" "4-13 l: ckllmqzlvcsxpplqg" 
+    ## [5] "3-11 n: nnrhnnnnnnnwsdnnnm" "5-6 d: ddddddb"
 
 ### Part 1
 
 ``` r
-day_01_part1 <- function(nums, target = 2020L) {
-  index <- 1
-  
-  while ({
-    num_1 <- nums[index]
-    other_nums <- setdiff(nums, num_1)
-    !((target - num_1) %in% other_nums) && index <= length(nums)
-  }) {
-    index <- index + 1
-  }
-  
-  return(nums[index] * (target - nums[index]))
+test_1_function <- function(match) {
+  appearances <- 
+    length(
+      gregexpr(match[4], match[5])[[1]]
+    )
+
+  appearances >= as.integer(match[2]) && appearances <= as.integer(match[3])
 }
 
-day_01_part1(nums)
+check_passwords <- function(passwords, check_fun) {
+  matches <-
+    regmatches(
+      passwords, regexec(
+        pattern = "(\\d+)-(\\d+) (\\w): (.+)", 
+        passwords
+      )
+    )
+
+  valid_test <-
+    sapply(matches, check_fun)
+
+  sum(valid_test)
+}
+
+check_passwords(passwords, test_1_function)
 ```
 
-    ## [1] 1020099
+    ## [1] 483
 
 ### Part 2
 
 ``` r
-day_01_part2 <- function(nums, target = 2020) {
-  index <- 1
-  while ({
-    num_1 <- nums[index]
-    other_nums <- setdiff(nums, num_1)
-    is.na(
-      part1 <- day_01_part1(other_nums, target - num_1)
-      ) && index < length(nums)
-  }) {
-    index <- index + 1
-  }
-  return(num_1 * part1)
+test_2_function <- function(match) {
+  pw_split <- regmatches(match[5], gregexpr("\\w", match[5]))[[1]]
+  sum(match[4] == pw_split[as.integer(match[2:3])]) == 1
 }
 
-day_01_part2(nums)
+check_passwords(passwords, test_2_function)
 ```
 
-    ## [1] 49214880
+    ## [1] 482
