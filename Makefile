@@ -1,11 +1,11 @@
-puzzle_rmds = $(wildcard puzzles/*/*.Rmd)
-puzzle_mds = $(puzzle_rmds:.Rmd=.md)
+rmd_files = $(wildcard puzzles/*/*.Rmd)
+md_files = $(rmd_files:.Rmd=.md)
 
-all: $(puzzle_mds)
+all: $(md_files)
 
 %.md: %.Rmd
 	Rscript \
 	-e "knitr::knit(input = '$<', output = '$@')"
 
 clean:
-	rm -f $(puzzle_mds)
+	rm -f $(md_files)
