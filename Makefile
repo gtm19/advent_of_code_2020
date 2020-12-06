@@ -8,4 +8,4 @@ all: $(puzzle_mds)
 	-e "knitr::knit(input = '$<', output = '$@')"
 
 clean:
-	rm -f puzzles/day_*/*.md
+	rm -f $(puzzle_mds)
