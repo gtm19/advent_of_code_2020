@@ -1,5 +1,11 @@
-all: puzzles/day_*/*.md
+puzzle_rmds = $(wildcard puzzles/*/*.Rmd)
+puzzle_mds = $(puzzle_rmds:.Rmd=.md)
 
-puzzles/day_%/%.md: puzzles/day_%/%.Rmd
-		Rscript \
-		-e "knitr::knit(input = '$<', output = '$@')"
+all: $(puzzle_mds)
+
+%.md: %.Rmd
+	Rscript \
+	-e "knitr::knit(input = '$<', output = '$@')"
+
+clean:
+	rm -f puzzles/day_*/*.md

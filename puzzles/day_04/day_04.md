@@ -1,5 +1,9 @@
-— Day 4: Passport Processing —
-================
+---
+title: '--- Day 4: Passport Processing ---'
+output: github_document
+---
+
+
 
 ## The Challenge
 
@@ -9,7 +13,8 @@ This can be read [here](https://adventofcode.com/2020/day/4)
 
 ### Reading in Data
 
-``` r
+
+```r
 passports <- readLines(
   here::here("puzzles", "day_04", "input.txt")
 )
@@ -17,16 +22,19 @@ passports <- readLines(
 head(passports)
 ```
 
-    ## [1] "ecl:hzl byr:1926 iyr:2010"                          
-    ## [2] "pid:221225902 cid:61 hgt:186cm eyr:2021 hcl:#7d3b0c"
-    ## [3] ""                                                   
-    ## [4] "hcl:#efcc98 hgt:178 pid:433543520"                  
-    ## [5] "eyr:2020 byr:1926"                                  
-    ## [6] "ecl:blu cid:92"
+```
+## [1] "ecl:hzl byr:1926 iyr:2010"                          
+## [2] "pid:221225902 cid:61 hgt:186cm eyr:2021 hcl:#7d3b0c"
+## [3] ""                                                   
+## [4] "hcl:#efcc98 hgt:178 pid:433543520"                  
+## [5] "eyr:2020 byr:1926"                                  
+## [6] "ecl:blu cid:92"
+```
 
 ### Part 1
 
-``` r
+
+```r
 process_passports <- function(passports) {
   
   # Collapse into single string
@@ -83,11 +91,14 @@ sum(
 )
 ```
 
-    ## [1] 237
+```
+## [1] 237
+```
 
 ### Part 2
 
-``` r
+
+```r
 validate_part2 <- function(processed_pp, 
                            required_cols = c(
                              "byr",
@@ -132,4 +143,7 @@ sum(
 )
 ```
 
-    ## [1] 172
+```
+## [1] 172
+```
+

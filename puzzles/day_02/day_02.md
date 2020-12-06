@@ -1,5 +1,9 @@
-— Day 2: Password Philosophy —
-================
+---
+title: '--- Day 2: Password Philosophy ---'
+output: github_document
+---
+
+
 
 ## The Challenge
 
@@ -9,20 +13,24 @@ This can be read [here](https://adventofcode.com/2020/day/2)
 
 ### Reading in Data
 
-``` r
+
+```r
 passwords <- 
   readLines(here::here("puzzles", "day_02", "input.txt"))
 
 head(passwords)
 ```
 
-    ## [1] "3-4 j: tjjj"                "7-10 h: nhhhhhgghphhh"     
-    ## [3] "7-13 j: tpscbbstbdjsjbtcpj" "4-13 l: ckllmqzlvcsxpplqg" 
-    ## [5] "3-11 n: nnrhnnnnnnnwsdnnnm" "5-6 d: ddddddb"
+```
+## [1] "3-4 j: tjjj"                "7-10 h: nhhhhhgghphhh"     
+## [3] "7-13 j: tpscbbstbdjsjbtcpj" "4-13 l: ckllmqzlvcsxpplqg" 
+## [5] "3-11 n: nnrhnnnnnnnwsdnnnm" "5-6 d: ddddddb"
+```
 
 ### Part 1
 
-``` r
+
+```r
 test_1_function <- function(match) {
   appearances <- 
     length(
@@ -50,11 +58,14 @@ check_passwords <- function(passwords, check_fun) {
 check_passwords(passwords, test_1_function)
 ```
 
-    ## [1] 483
+```
+## [1] 483
+```
 
 ### Part 2
 
-``` r
+
+```r
 test_2_function <- function(match) {
   pw_split <- regmatches(match[5], gregexpr("\\w", match[5]))[[1]]
   sum(match[4] == pw_split[as.integer(match[2:3])]) == 1
@@ -63,4 +74,7 @@ test_2_function <- function(match) {
 check_passwords(passwords, test_2_function)
 ```
 
-    ## [1] 482
+```
+## [1] 482
+```
+
