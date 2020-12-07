@@ -1,0 +1,32 @@
+---
+title: '--- Day 7: Handy Haversacks ---'
+output: github_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## The Challenge
+
+This can be read [here](https://adventofcode.com/2020/day/7)
+
+## The Solution
+
+### Reading in Data
+
+```{r}
+
+bags <-
+  readLines(
+    here::here("puzzles", "day_07", "input.txt")
+  )
+
+```
+
+### Part 1
+
+### Part 2
+
