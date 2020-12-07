@@ -5,9 +5,7 @@ editor_options:
   chunk_output_type: console
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
+
 
 ## The Challenge
 
@@ -17,21 +15,20 @@ This can be read [here](https://adventofcode.com/2020/day/6)
 
 ### Reading in Data
 
-```{r}
 
+```r
 questions <-
   readLines(
     here::here("puzzles", "day_06", "input.txt")
   )
-
 ```
 
 ### Part 1
 
 First, I create a function which takes the vector of responses as an input, and returns a list containing one vector per response, and an attribute recording how many people submitted responses:
 
-```{r}
 
+```r
 cleanse_responses <- function(questions) {
   questions <- paste(questions, collapse ="\n")
   
@@ -52,13 +49,20 @@ cleanse_responses <- function(questions) {
 }
 
 cleanse_responses(questions)[1]
+```
 
+```
+## [[1]]
+##  [1] "v" "m" "z" "o" "d" "a" "t" "s" "c" "n" "r" "f" "e" "k" "e" "p" "j" "k" "r"
+## [20] "a" "b" "m" "i" "u" "s" "o" "f" "z" "c" "l" "t"
+## attr(,"n_people")
+## [1] 2
 ```
 
 Then, for each of these cleansed responses, extract the length of the `unique()`d vector and add them up:
 
-```{r}
 
+```r
 summarise_responses <- function(questions, .fun) {
   sum(
     sapply(
@@ -69,16 +73,24 @@ summarise_responses <- function(questions, .fun) {
 }
 
 summarise_responses(questions, function(x) length(unique(x)))
+```
 
+```
+## [1] 6680
 ```
 
 ### Part 2
 
 I just recycle the `summarise_responses()` function, but using a different summary `.fun()`:
 
-```{r}
+
+```r
 summarise_responses(
   questions, 
   function(x) sum(table(x) == attr(x, "n_people"))
 )
+```
+
+```
+## [1] 3117
 ```
