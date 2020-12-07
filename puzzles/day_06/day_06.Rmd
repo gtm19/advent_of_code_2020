@@ -25,32 +25,46 @@ questions <-
   )
 
 sample_questions <- 
-  "abc
-
-a
-b
-c
-
-ab
-ac
-
-a
-a
-a
-a
-
-b"
+  c("abc",
+    "",
+    "a",
+    "b",
+    "c",
+    "",
+    "ab",
+    "ac",
+    "",
+    "a",
+    "a",
+    "a",
+    "a",
+    "",
+    "b")
 
 ```
 
 ### Part 1
 
 ```{r}
-strsplit(strsplit(sample_questions, "\n{2}")[[1]], '(\n|"")')
+questions <- paste(questions, collapse ="\n")
 
-groupedstrsplit(sample_questions, "\n{2}")[[1]]
-regmatches(strsplit(sample_questions, "\n{2}")[[1]],regexpr("[0-9]+",strsplit(sample_questions, "\n{2}")[[1]]))
+grouped_responses <- 
+  strsplit(questions, "\n{2}")
 
+grouped_responses <-
+  lapply(
+    grouped_responses,
+    function(resp) {
+      regmatches(resp, gregexpr("\\w", resp))
+    }
+  )[[1]]
+
+sum(
+  sapply(
+    grouped_responses,
+    function(response) length(unique(response))
+  )
+)
 ```
 
 
